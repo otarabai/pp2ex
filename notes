@@ -1,3 +1,13 @@
 - Used trim-header.py to remove everything except identifier from the header of genes_UniProt.fasta (as instructed in slides), output to file db.fasta
+
 - Created blast db with the command:
 formatdb -i db.fasta -p T
+
+- Command to compare:
+echo -e ">TEST\nMADQLTEEQIAEFKEAFSLFDKDGDGTITTKELGTVMRSLGQNPTEAELQDMINEVDADGNGTIDFPEFLTMMARKMKDTDSEEEIREAFRVFDKDGNGYISAAELRHVMTNLGEKLTDEEVDEMIREADIDGDGQVNYEEFVQMMTAK" | blastall -p blastp -d db.fasta -m 8 -b 5
+
+'TEST' is the ID of the sequence that we want to compare followed by a newline and the sequence itself
+change -b 6 to the limit of hits you want
+Output description: http://www.pangloss.com/wiki/Blast
+
+- There seems to be repitition in the database (e.g. B4DJ51)
