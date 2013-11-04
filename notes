@@ -1,0 +1,3 @@
+- Used trim-header.py to remove everything except identifier from the header of genes_UniProt.fasta (as instructed in slides), output to file db.fasta
+- Created blast db with the command:
+formatdb -i db.fasta -p T
