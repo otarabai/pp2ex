@@ -6,7 +6,7 @@ def main(argv):
         print "Usage: %s <sequence> <hits>" % argv[0]
         return
 
-    b = blast.Blast('db.fasta')
+    b = blast.Blast('blastdb/db.fasta')
     print b.run(argv[1], argv[2])
 
 if __name__ == "__main__":
