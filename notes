@@ -10,4 +10,19 @@ echo -e ">TEST\nMADQLTEEQIAEFKEAFSLFDKDGDGTITTKELGTVMRSLGQNPTEAELQDMINEVDADGNGTI
 change -b 6 to the limit of hits you want
 Output description: http://www.pangloss.com/wiki/Blast
 
-- There seems to be repitition in the database (e.g. B4DJ51)
+- There seems to be repitition in the database (B4DJ51, P62158)
+
+- Create hhblits db:
+
+# Transform from fasta to a3m
+/usr/share/hhsuite/scripts/reformat.pl fas a3m db.fasta db.a3m
+
+# Split single file into multiple files for each sequence
+# Modified version of splitfasta (to output .a3m extension instead of .seq)
+./splitfasta.pl db.a3m
+
+# Create hhblits database
+/usr/share/hhsuite/scripts/hhblitsdb.pl -o hhdb -ia3m seq/ 1> stdout.log 2> stderr.log
+
+# Test match
+hhblits -i test -d hhdb

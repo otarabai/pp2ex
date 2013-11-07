@@ -9,14 +9,10 @@ class Blast:
     def run(self, sequence, hits = 5):
         cmd = [
             self.program,
-            '-p',
-            'blastp',
-            '-d',
-            self.dbfilename,
-            '-m',
-            '8',
-            '-b',
-            str(hits),
+            '-p', 'blastp',
+            '-d', self.dbfilename,
+            '-m', '8',
+            '-b', str(hits),
             ]
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
         out, err = p.communicate(input = '>TEST\n%s' % sequence)
