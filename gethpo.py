@@ -44,7 +44,8 @@ def main(argv):
     
     aTree = AnnotationTree.AnnotationTree()
     aTree.createAnnotationTree(pathList)
-    print 'Hello World'
+    aTree.printTree()
+    #print 'Hello World'
     
     #print 'Annotations: %s' % annotations
     # Print all paths
