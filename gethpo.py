@@ -1,6 +1,7 @@
 import sys
 from pp2ex import Hpo
 from pp2ex import Annotation
+from pp2ex import AnnotationTree
 
 def test(amap):
     # Checking that we have annotations for all sequences in db
@@ -36,10 +37,19 @@ def main(argv):
     # Get target annotations
     annotations = amap.getbyuniprotid(target)
     
-    print 'Annotations: %s' % annotations
-    # Print all paths
+    # Create Tree for paths
+    pathList = list()
     for a in annotations:
-        print tree.extractpath(a)
+         pathList = pathList + tree.extractpath(a)
+    
+    aTree = AnnotationTree.AnnotationTree()
+    aTree.createAnnotationTree(pathList)
+    print 'Hello World'
+    
+    #print 'Annotations: %s' % annotations
+    # Print all paths
+    #for a in annotations:
+    #    print tree.extractpath(a)
     
     #test(amap)
 
