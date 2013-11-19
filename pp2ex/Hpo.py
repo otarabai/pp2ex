@@ -3,6 +3,17 @@ class HpoTree:
         self.root = None
         self.terms = dict()
     
+    def __str__(self):
+        if not self.root:
+            raise Exception("Tree root not defined")
+        return self.printterm(self.root, 0)
+    
+    def printterm(self, term, tabs):
+        ret = '\t' * tabs + str(term) + '\n'
+        for child in term.children:
+            ret += self.printterm(child, tabs + 1)
+        return ret
+    
     def extractpath(self, termid):
         if termid not in self.terms:
             raise Exception('Term ID %s not found' % termid)
@@ -51,7 +62,8 @@ class HpoTree:
         if term.id in self.terms: # Term already exists
             existingterm = self.terms[term.id]
             if existingterm.name is not None:
-                raise Exception('Term already exists: %s' % term.id)
+                existingterm.frequency += 1
+                return
             existingterm.name = term.name
             existingterm.parentid = term.parentid
             existingterm.extra = term.extra
@@ -59,11 +71,8 @@ class HpoTree:
         else:
             self.terms[term.id] = term
 
-        if term.parentid is None:
-            if self.root is None:
-                self.root = term
-            else:
-                raise Exception('Term with no parent and we already have a root: %s' % term.id)
+        if term.parentid is None and self.root is None:
+            self.root = term
         else:
             # Connect to parent
             if term.parentid in self.terms: # parent already in tree
@@ -75,6 +84,9 @@ class HpoTree:
             term.parent = parent
             parent.children.append(term)
         
+    def addpath(self, path):
+        for term in path:
+            self.addterm(term.getcopy()) # Use a copy to avoid taking the previous tree links too
     
     def parseterm(self, fileObj):
         term = HpoTerm()
@@ -108,9 +120,18 @@ class HpoTerm:
         self.parentid = None
         self.extra = '' # Other information not important for us now
 
+        self.frequency = 1
         self.obselete = False
         self.parent = None
         self.children = list()
     
+    def getcopy(self):
+        copy = HpoTerm()
+        copy.id = self.id
+        copy.name = self.name
+        copy.parentid = self.parentid
+        copy.extra = self.extra
+        return copy
+    
     def __repr__(self):
-        return '<%s : %s>' % (self.id, self.name)
+        return '<%s : %s, Frequency: %s>' % (self.id, self.name, self.frequency)

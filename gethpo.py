@@ -31,26 +31,33 @@ def main(argv):
     
     # Create Full HPO map    
     hpofilename = 'initial/hp.obo'
-    tree = Hpo.HpoTree()
-    tree.construct(hpofilename)
+    fullTree = Hpo.HpoTree()
+    fullTree.construct(hpofilename)
     
     # Get target annotations
     annotations = amap.getbyuniprotid(target)
     
     # Create Tree for paths
-    pathList = list()
-    for a in annotations:
-         pathList = pathList + tree.extractpath(a)
-    
-    aTree = AnnotationTree.AnnotationTree()
-    aTree.createAnnotationTree(pathList)
-    aTree.printTree()
-    #print 'Hello World'
-    
-    #print 'Annotations: %s' % annotations
-    # Print all paths
+    #pathList = list()
     #for a in annotations:
     #    print tree.extractpath(a)
+    #    pathList = pathList + tree.extractpath(a)
+    
+    #aTree = AnnotationTree.AnnotationTree()
+    #aTree.createAnnotationTree(pathList)
+    #aTree.printTree()
+    #print 'Hello World'
+    
+    print '\nAnnotations: %s\n\nPaths:' % annotations
+    # Merge and print all paths
+    mergedTree = Hpo.HpoTree()
+    for a in annotations:
+        path = fullTree.extractpath(a)
+        print path
+        mergedTree.addpath(path)
+    
+    print '\nMerged Tree:'
+    print mergedTree
     
     #test(amap)
 
