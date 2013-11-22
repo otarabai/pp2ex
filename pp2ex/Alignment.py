@@ -7,13 +7,14 @@ class Blast:
         self.dbfilename = dbfilename
         self.out_cols = ['queryid', 'matchid', 'percentage', 'alignment-len', 'mistmatches', 'gap-openings', 'q.start', 'q.end', 's.start', 's.end', 'e-value', 'bit-score']
     
-    def run(self, sequence, hits = 5):
+    def run(self, sequence, numberOfCpus, hits = 5):
         cmd = [
             self.program,
             '-p', 'blastp', # Program name
             '-d', self.dbfilename, # DB file name
             '-m', '8', # Output format
             '-b', str(hits), # Number of hits
+            '-a', numberOfCpus
             ]
         print cmd
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
@@ -31,13 +32,13 @@ class Blast:
         return res
 
 class Hhblits:
-    def __init__(self, dbfilename):
+    def __init__(self, dbfilename='/mnt/project/pp2_hhblits_db/pp2_hhm_db'):
         self.dbfilename = dbfilename
     
-    def run(self, sequence, hits = 5):
+    def run(self, sequence, numberOfCpus, hits = 5):
         # Create temp file with input
         iFile = tempfile.NamedTemporaryFile(delete=False)
-        iFile.write('>TEMP')
+        iFile.write('>TEMP\n')
         iFile.write(sequence)
         iFile.close()
         
@@ -45,11 +46,12 @@ class Hhblits:
         oFile.close()
         
         cmd = [
-            'hhblits',
+            'hhsearch',
             '-i', iFile.name,
             '-d', self.dbfilename,
             '-z', hits,
-            '-o', oFile.name
+            '-o', oFile.name,
+            '-cpu', numberOfCpus
             ]
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
         p.communicate()
