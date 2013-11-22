@@ -13,7 +13,7 @@ def main(argv):
     for b in blastdata:
         print '%s\t%s\t%s' % (b['matchid'], b['percentage'], b['e-value'])
 
-    h = Hhblits('dummy')
+    h = Hhblits('/mnt/project/pp2_hhblits_db/pp2_hhm_db')
     hhblitsdata = h.run(argv[1], argv[2])
     print '\nHHBlits results:\n'
     for h in hhblitsdata:
