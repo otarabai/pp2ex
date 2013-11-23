@@ -74,6 +74,6 @@ class Hhblits:
                     res.append(hit_data)
             elif len(parts)>0:
                 if parts[0]=='No':
-                    resultsStarted = true
+                    resultsStarted = True
                 
         return res
