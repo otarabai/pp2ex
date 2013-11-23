@@ -71,6 +71,7 @@ class Hhblits:
                     hit_data['matchid'] = parts[1]
                     hit_data['percentage'] = parts[2]
                     hit_data['e-value'] = parts[3]
+                    hit_data['score'] = parts[4]
                     res.append(hit_data)
             elif len(parts)>0:
                 if parts[0]=='No':

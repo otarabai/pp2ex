@@ -17,7 +17,7 @@ def main(argv):
     hhblitsdata = h.run(argv[1], argv[2], argv[3])
     print '\nHHBlits results:\n'
     for h in hhblitsdata:
-        print '%s\t%s\t%s' % (h['matchid'], h['percentage'], h['e-value'])
+        print '%s\t%s\t%s\t%s' % (h['matchid'], h['percentage'], h['e-value'], h['score'])
 
 if __name__ == "__main__":
     main(sys.argv)
