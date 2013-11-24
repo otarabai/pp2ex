@@ -46,7 +46,7 @@ class HpoTreeCreator:
         # Merge and print all paths
         mergedTree = Hpo.HpoTree()
         for a in annotations:
-            path = fullTree.extractpath(a)
+            path = self.fullTree.extractpath(a)
             print path
             mergedTree.addpath(path)
         
