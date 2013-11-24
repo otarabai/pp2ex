@@ -22,7 +22,7 @@ class HpoTreeCreator:
         self._createAnnotationMap(pathToAnnotations, pathToIdMapping)
         self._createFullHpoMap(pathToHpObo)
     
-    def _createAnnoationMap(pathToAnnotations, pathToIdMapping):
+    def _createAnnotationMap(pathToAnnotations, pathToIdMapping):
         # Create annotation map
         annotfilename = pathToAnnotations
         idmappingfilename = pathToIdMapping
@@ -42,7 +42,7 @@ class HpoTreeCreator:
         # Get target annotations
         annotations = self.annotationMap.getbyuniprotid(target)
         
-        print '\nAnnotations: %s\n\nPaths:' % annotations
+        print '\nAnnotations: %s\n\nPaths: ' % annotations
         # Merge and print all paths
         mergedTree = Hpo.HpoTree()
         for a in annotations:
