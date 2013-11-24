@@ -19,10 +19,10 @@ class HpoTreeCreator:
     def __init__(self, pathToHpObo='initial/hp.obo', pathToAnnotations='initial/annotations.txt', pathToIdMapping='initial/idmapping'):
         self.fullTree=None
         self.annotationMap=None
-        createAnnotationMap()
-        createFullHpoMap()
+        self._createAnnotationMap(pathToAnnotations, pathToIdMapping)
+        self._createFullHpoMap(pathToHpObo)
     
-    def createAnnoationMap(pathToAnnotations, pathToIdMapping):
+    def _createAnnoationMap(pathToAnnotations, pathToIdMapping):
         # Create annotation map
         annotfilename = pathToAnnotations
         idmappingfilename = pathToIdMapping
@@ -30,7 +30,7 @@ class HpoTreeCreator:
         self.annotationMap.parse(annotfilename)
         self.annotationMap.loadidmapping(idmappingfilename)
     
-    def createFullHpoMap(pathToHpObo):
+    def _createFullHpoMap(pathToHpObo):
             # Create Full HPO map    
         hpofilename = pathToHpObo
         self.fullTree = Hpo.HpoTree()

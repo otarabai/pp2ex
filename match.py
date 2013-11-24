@@ -20,9 +20,9 @@ def main(argv):
     for h in hhblitsdata:
         print '%s\t%s\t%s\t%s' % (h['matchid'], h['percentage'], h['e-value'], h['score'])
     # TODO: Take relevant results
-    hpoCreator = gethpo.HpoTreeCreator()
+    hpoCreator = HpoTreeCreator()
 # TODO: "feed" gethpo with the results
-    hpoCreator.constructTreeForUniprotId('P01023')
+    hpoCreator.constructTreeForUniprotId('P01023') # for now: fixed test-entry
 # TODO: merge resulting trees of multiple gethpo-items
 
 # TOOD: Spit out resulting tree?
