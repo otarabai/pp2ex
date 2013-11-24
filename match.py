@@ -1,6 +1,7 @@
 import sys
 from pp2ex.Alignment import Blast
 from pp2ex.Alignment import Hhblits
+from gethpo import HpoTreeCreator 
 
 def main(argv):
     if len(argv) < 4:
@@ -18,6 +19,13 @@ def main(argv):
     print '\nHHBlits results:\n'
     for h in hhblitsdata:
         print '%s\t%s\t%s\t%s' % (h['matchid'], h['percentage'], h['e-value'], h['score'])
+    # TODO: Take relevant results
+    hpoCreator = gethpo.HpoTreeCreator()
+# TODO: "feed" gethpo with the results
+    hpoCreator.constructTreeForUniprotId('P01023')
+# TODO: merge resulting trees of multiple gethpo-items
+
+# TOOD: Spit out resulting tree?
 
 if __name__ == "__main__":
     main(sys.argv)
