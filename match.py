@@ -1,7 +1,8 @@
 import sys
 from pp2ex.Alignment import Blast
 from pp2ex.Alignment import Hhblits
-from pp2ex.Alignment import ResultComparison
+from pp2ex.ResultComparison import ComparisionResult
+from pp2ex.ResultComparison import ResultFilterer
 from gethpo import HpoTreeCreator 
 
 def main(argv):
@@ -15,17 +16,17 @@ def main(argv):
 
     blastResultList = list()
     for b in blastdata:
-        bResult = ResultComparison.ComparisionResult(b['matchid'], b['percentage'], b['e-value'])
+        bResult = ComparisionResult(b['matchid'], b['percentage'], b['e-value'])
 
     # HHBlits
     h = Hhblits('/mnt/project/pp2_hhblits_db/pp2_hhm_db')
     hhblitsdata = h.run(argv[1], argv[2], argv[3])
     hhSearchResultList = list()
     for h in hhblitsdata:
-        hhResult = ResultComparison.ComparisionResult(h['matchid'], h['percentage'], h['e-value'], h['score'])
+        hhResult = ComparisionResult(h['matchid'], h['percentage'], h['e-value'], h['score'])
 
     # TODO: Take relevant results
-    filterer = ResultComparison.ResultFilterer(blastResultList, hhSearchResultList)
+    filterer = ResultFilterer(blastResultList, hhSearchResultList)
     filteredResults = filterer.filterTopResults()
     # TODO: "feed" gethpo with the results
     hpoCreator = HpoTreeCreator()
