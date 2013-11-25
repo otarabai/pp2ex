@@ -17,6 +17,7 @@ def main(argv):
     blastResultList = list()
     for b in blastdata:
         bResult = ComparisionResult(b['matchid'], b['percentage'], b['e-value'])
+        blastResultList.append(bResult)
 
     # HHBlits
     h = Hhblits('/mnt/project/pp2_hhblits_db/pp2_hhm_db')
@@ -24,7 +25,8 @@ def main(argv):
     hhSearchResultList = list()
     for h in hhblitsdata:
         hhResult = ComparisionResult(h['matchid'], h['percentage'], h['e-value'], h['score'])
-
+        hhSearchResultList.append(hhResult)
+        
     # TODO: Take relevant results
     filterer = ResultFilterer(blastResultList, hhSearchResultList)
     filteredResults = filterer.filterTopResults()

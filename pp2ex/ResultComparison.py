@@ -17,7 +17,7 @@ class ResultFilterer:
         for result in self.blastResults:
             if result.percentage>90:
                 if result.eValue<1:
-                    topResults=topResults + result
+                    topResults.append(result.uniprotId)
   
         # combine them!
         return topResults
