@@ -1,11 +1,11 @@
-class ComparisionResult(self):
+class ComparisionResult:
     def __init__(self, uniprotId, percentage, eValue, score=None):
         self.uniprotId=uniprotId
         self.percentage=percentage
         self.eValue=eValue
         self.score=None
 
-class ResultFilterer(self):
+class ResultFilterer:
     def __init__(self, blastResults, hhSearchResults):
         self.blastResults=blastResults
         self.hhSearchResults=hhSearchResults
