@@ -11,7 +11,7 @@ def main(argv):
         print "Usage: %s <sequence> <hits>" % argv[0]
         return
 
-    numberOfCpus = multiprocessing.cpu_cound()
+    numberOfCpus = multiprocessing.cpu_count()
     if not numberOfCpus or numberOfCpus <= 0:
         numberOfCpus=1
 
