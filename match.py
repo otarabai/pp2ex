@@ -1,4 +1,5 @@
 import sys
+import multiprocessing
 from pp2ex.Alignment import Blast
 from pp2ex.Alignment import Hhblits
 from pp2ex.ResultComparison import ComparisionResult
@@ -6,13 +7,19 @@ from pp2ex.ResultComparison import ResultFilterer
 from gethpo import HpoTreeCreator 
 
 def main(argv):
-    if len(argv) < 4:
-        print "Usage: %s <sequence> <hits> <number of cpus>" % argv[0]
+    if len(argv) < 3:
+        print "Usage: %s <sequence> <hits>" % argv[0]
         return
+
+    numberOfCpus = multiprocessing.cpu_cound()
+    if not numberOfCpus or numberOfCpus <= 0:
+        numberOfCpus=1
+
+    numberOfCpus=str(numberOfCpus)
 
     # Blast
     b = Blast('blastdb/db.fasta')
-    blastdata = b.run(argv[1], argv[2], argv[3])
+    blastdata = b.run(argv[1], argv[2], numberOfCpus)
 
     blastResultList = list()
     for b in blastdata:
@@ -21,18 +28,19 @@ def main(argv):
 
     # HHBlits
     h = Hhblits('/mnt/project/pp2_hhblits_db/pp2_hhm_db')
-    hhblitsdata = h.run(argv[1], argv[2], argv[3])
+    hhblitsdata = h.run(argv[1], argv[2], numberOfCpus)
     hhSearchResultList = list()
     for h in hhblitsdata:
         hhResult = ComparisionResult(h['matchid'], h['percentage'], h['e-value'], h['score'])
         hhSearchResultList.append(hhResult)
-        
-    # TODO: Take relevant results
+
+    # Take relevant results
     filterer = ResultFilterer(blastResultList, hhSearchResultList)
     filteredResults = filterer.filterTopResults()
-    # TODO: "feed" gethpo with the results
-    hpoCreator = HpoTreeCreator()
-    hpoCreator.constructTreeForUniprotId('P01023') # for now: fixed test-entry
+    # "feed" gethpo with the results
+    hpoCreator = HpoTreeCreator() # build base-tree only once
+    for uniprotId in filteredResults:
+        hpoCreator.constructTreeForUniprotId(uniprotId)
     # TODO: merge resulting trees of multiple gethpo-items
 
     # TOOD: Spit out resulting tree

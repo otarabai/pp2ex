@@ -16,7 +16,7 @@ class ResultFilterer:
         # work with Percentage of identity & work with eValue
         for result in self.blastResults:
             if result.percentage>90:
-                if result.eValue<1:
+                if float(result.eValue)<1:
                     topResults.append(result.uniprotId)
   
         # combine them!
