@@ -135,3 +135,36 @@ class HpoTerm:
     
     def __repr__(self):
         return '<%s : %s, Frequency: %s>' % (self.id, self.name, self.frequency)
+
+class HpoTreeCombiner:
+    def compareTrees(self, reference, predicted):
+        matchs = 0.0
+        
+        for predictedTerm in predicted.terms.keys():
+            if predictedTerm in reference.terms:
+                matchs += 1
+        
+        # From wikipedia: http://en.wikipedia.org/wiki/Precision_and_recall
+        # "high recall means that an algorithm returned most of the relevant results, while high precision means that an algorithm returned substantially more relevant results than irrelevant"
+        precision = matchs / len(predicted.terms)
+        recall = matchs / len(reference.terms)
+        
+        return (precision, recall)
+        
+
+    """ All functions after this expect a parameter: list of dictionaries
+        
+        Each dictonary contains:
+        'tree' => instance of HpoTree
+        'match' => instance of ComparisonResult
+        
+        Returns an instance of HpoTree (prediction)
+    """
+
+    def combineNaive(self, trees):
+        """Adds all terms we get without any filtering"""
+        result = HpoTree()
+        for tree in trees:
+            for term in tree['tree'].terms.itervalues():
+                result.addterm(term.getcopy())
+        return result

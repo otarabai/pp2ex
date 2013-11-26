@@ -2,7 +2,7 @@ import sys
 import multiprocessing
 from pp2ex.Alignment import Blast
 from pp2ex.Alignment import Hhblits
-from pp2ex.ResultComparison import ComparisionResult
+from pp2ex.ResultComparison import ComparisonResult
 from pp2ex.ResultComparison import ResultFilterer
 from gethpo import HpoTreeCreator 
 
@@ -20,10 +20,10 @@ def main(argv):
     # Blast
     b = Blast('blastdb/db.fasta')
     blastdata = b.run(argv[1], argv[2], numberOfCpus)
-
+    print blastdata
     blastResultList = list()
     for b in blastdata:
-        bResult = ComparisionResult(b['matchid'], b['percentage'], b['e-value'])
+        bResult = ComparisonResult(b['matchid'], b['percentage'], b['e-value'])
         blastResultList.append(bResult)
 
     # HHBlits
@@ -31,7 +31,7 @@ def main(argv):
     hhblitsdata = h.run(argv[1], argv[2], numberOfCpus)
     hhSearchResultList = list()
     for h in hhblitsdata:
-        hhResult = ComparisionResult(h['matchid'], h['percentage'], h['e-value'], h['score'])
+        hhResult = ComparisonResult(h['matchid'], h['percentage'], h['e-value'], h['score'])
         hhSearchResultList.append(hhResult)
 
     # Take relevant results
