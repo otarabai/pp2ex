@@ -19,7 +19,7 @@ def main(argv):
 
     # Blast
     b = Blast('blastdb/db.fasta')
-    blastdata = b.run(argv[1], argv[2], numberOfCpus)
+    blastdata = b.run(argv[1], numberOfCpus, argv[2])
     print blastdata
     blastResultList = list()
     for b in blastdata:
@@ -28,7 +28,7 @@ def main(argv):
 
     # HHBlits
     h = Hhblits('/mnt/project/pp2_hhblits_db/pp2_hhm_db')
-    hhblitsdata = h.run(argv[1], argv[2], numberOfCpus)
+    hhblitsdata = h.run(argv[1], numberOfCpus, argv[2])
     hhSearchResultList = list()
     for h in hhblitsdata:
         hhResult = ComparisonResult(h['matchid'], h['percentage'], h['e-value'], h['score'])
