@@ -1,3 +1,5 @@
+from collections import deque
+
 class HpoTree:
     def __init__(self):
         self.root = None
@@ -168,3 +170,25 @@ class HpoTreeCombiner:
             for term in tree['tree'].terms.itervalues():
                 result.addterm(term.getcopy())
         return result
+
+    def combineBasedOnFrequency(self, trees):
+        """Adds all terms and removes the ones with a very low frequency"""
+        result = self.combineNaive(trees)
+        #for term in result.terms:
+        newTree = HpoTree()
+        newTree.root = result.root
+        return self._iterateTerm(newTree, result.root)
+
+    def _iterateTerm(self, tree, term):
+        if term.children and len(term.children)>0:
+            for t in term.children:
+                if t.frequency>2:
+                    tree.addterm(t)
+                    return self._iterateTerm(tree, t)
+        else:
+            if term.frequency>2:
+                tree.addterm(term)
+                return self._iterateTerm(tree, term)
+        return tree
+        
+       # return term.id+" -- "
