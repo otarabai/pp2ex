@@ -1,4 +1,5 @@
 import sys
+import cPickle as pickle
 from pp2ex import Hpo
 from pp2ex import Annotation
 
@@ -7,8 +8,19 @@ class HpoTreeCreator:
     def __init__(self, pathToHpObo='initial/hp.obo', pathToAnnotations='initial/annotations.txt', pathToIdMapping='initial/idmapping'):
         self.fullTree=None
         self.annotationMap=None
-        self._createAnnotationMap(pathToAnnotations, pathToIdMapping)
-        self._createFullHpoMap(pathToHpObo)
+        self._loadTree(pathToAnnotations, pathToIdMapping, pathToHpObo)
+
+    def _loadTree(self, pathToAnnotations, pathToIdMapping, pathToHpObo):
+        try:
+            treeFromFile = pickle.load(open("fullTree.p","rb"))
+            annotationFromFile = pickle.load(open("annotationMap.p","rb"))
+            self.fullTree = treeFromFile
+            self.annotationMap = annotationFromFile
+        except IOError:
+            self._createAnnotationMap(pathToAnnotations, pathToIdMapping)
+            self._createFullHpoMap(pathToHpObo)
+            pickle.dump(self.fullTree, open("fullTree.p","wb"), pickle.HIGHEST_PROTOCOL)
+            pickle.dump(self.annotationMap, open("annotationMap.p","wb"), pickle.HIGHEST_PROTOCOL)
     
     def _createAnnotationMap(self, pathToAnnotations, pathToIdMapping):
         # Create annotation map
