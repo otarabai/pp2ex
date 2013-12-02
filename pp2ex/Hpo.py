@@ -171,13 +171,24 @@ class HpoTreeCombiner:
                 result.addterm(term.getcopy())
         return result
 
+    """ Creating tree based on term-frequency.
+        minimal-frequency is now '2'
+    """
     def combineBasedOnFrequency(self, trees):
         """Adds all terms and removes the ones with a very low frequency"""
         result = self.combineNaive(trees)
         #for term in result.terms:
+        #newTree = HpoTree()
+
+        return self._iterateTerm2(result)
+
+    def _iterateTerm2(self, baseTree):
         newTree = HpoTree()
-        newTree.root = result.root
-        return self._iterateTerm(newTree, result.root)
+        for term in baseTree.terms.itervalues():
+            if term.frequency>2:
+                newTree.addterm(term)
+        return newTree
+
 
     def _iterateTerm(self, tree, term):
         if term.children and len(term.children)>0:
