@@ -1,4 +1,7 @@
-from collections import deque
+import sys
+import cPickle as pickle
+from Annotation import AnnotationMap
+import math
 
 class HpoTree:
     def __init__(self):
@@ -90,6 +93,10 @@ class HpoTree:
         for term in path:
             self.addterm(term.getcopy()) # Use a copy to avoid taking the previous tree links too
     
+    def addtree(self, tree):
+        for term in tree.terms.itervalues():
+            self.addterm(term.getcopy())
+    
     def parseterm(self, fileObj):
         term = HpoTerm()
 
@@ -123,6 +130,7 @@ class HpoTerm:
         self.extra = '' # Other information not important for us now
 
         self.frequency = 1
+        self.score = 0.0
         self.obselete = False
         self.parent = None
         self.children = list()
@@ -136,70 +144,104 @@ class HpoTerm:
         return copy
     
     def __repr__(self):
-        return '<%s : %s, Frequency: %s>' % (self.id, self.name, self.frequency)
+        return '<%s : %s, Score: %s>' % (self.id, self.name, self.score)
 
 class HpoTreeCombiner:
-    def compareTrees(self, reference, predicted):
-        matchs = 0.0
-        
-        for predictedTerm in predicted.terms.keys():
-            if predictedTerm in reference.terms:
-                matchs += 1
-        
-        # From wikipedia: http://en.wikipedia.org/wiki/Precision_and_recall
-        # "high recall means that an algorithm returned most of the relevant results, while high precision means that an algorithm returned substantially more relevant results than irrelevant"
-        precision = matchs / len(predicted.terms)
-        recall = matchs / len(reference.terms)
-        
-        return (precision, recall)
-        
-
-    """ All functions after this expect a parameter: list of dictionaries
+    """ All functions in this class expect a parameter: list of dictionaries
         
         Each dictonary contains:
         'tree' => instance of HpoTree
-        'match' => instance of ComparisonResult
+        'matchid', 'e-value', 'percentage', 'score'
         
         Returns an instance of HpoTree (prediction)
     """
 
-    def combineNaive(self, trees):
-        """Adds all terms we get without any filtering"""
+    def combineNaive(self, hits):
+        """Sets all term scores to 1"""
         result = HpoTree()
-        for tree in trees:
-            for term in tree['tree'].terms.itervalues():
-                result.addterm(term.getcopy())
+        for hit in hits:
+            for term in hit['tree'].terms.itervalues():
+                newTerm = term.getcopy()
+                newTerm.score = 1.0
+                result.addterm(newTerm)
         return result
 
-    """ Creating tree based on term-frequency.
-        minimal-frequency is now '2'
-    """
-    def combineBasedOnFrequency(self, trees):
-        """Adds all terms and removes the ones with a very low frequency"""
-        result = self.combineNaive(trees)
-        #for term in result.terms:
-        #newTree = HpoTree()
+    def combineBasedOnFrequency(self, hits):
+        result = self.combineNaive(hits)
+        maxfreq = float(result.root.frequency)
+        for term in result.terms.itervalues():
+            term.score = float(term.frequency) / maxfreq
+        return result
 
-        return self._iterateTerm2(result)
-
-    def _iterateTerm2(self, baseTree):
-        newTree = HpoTree()
-        for term in baseTree.terms.itervalues():
-            if term.frequency>2:
-                newTree.addterm(term)
-        return newTree
-
-
-    def _iterateTerm(self, tree, term):
-        if term.children and len(term.children)>0:
-            for t in term.children:
-                if t.frequency>2:
-                    tree.addterm(t)
-                    return self._iterateTerm(tree, t)
-        else:
-            if term.frequency>2:
-                tree.addterm(term)
-                return self._iterateTerm(tree, term)
-        return tree
+    def combineBasedOnPercentage(self, hits):
+        result = HpoTree()
         
-       # return term.id+" -- "
+        if len(hits) == 0:
+            return result
+        
+        for hit in hits:
+            if float(hit['percentage']) == 100 or float(hit['e-value']) == 0:
+                score = 1.0
+            else:
+                score = float(hit['percentage']) / 100.0
+            
+            for term in hit['tree'].terms.itervalues():
+                if term.id in result.terms and result.terms[term.id].name is not None:
+                    oldscore = result.terms[term.id].score
+                    result.terms[term.id].score = oldscore + (1.0 - oldscore) * score
+                else:
+                    newTerm = term.getcopy()
+                    newTerm.score = score
+                    result.addterm(newTerm)
+            
+        return result
+
+
+class HpoTreeCreator:
+    """docstring for HpoTreeCreator"""
+    def __init__(self, pathToHpObo='initial/hp.obo', pathToAnnotations='initial/annotations.txt', pathToIdMapping='initial/idmapping'):
+        self.fullTree=None
+        self.annotationMap=None
+        self._loadTree(pathToAnnotations, pathToIdMapping, pathToHpObo)
+
+    def _loadTree(self, pathToAnnotations, pathToIdMapping, pathToHpObo):
+        try:
+            treeFromFile = pickle.load(open("fullTree.p","rb"))
+            annotationFromFile = pickle.load(open("annotationMap.p","rb"))
+            self.fullTree = treeFromFile
+            self.annotationMap = annotationFromFile
+        except IOError:
+            self._createAnnotationMap(pathToAnnotations, pathToIdMapping)
+            self._createFullHpoMap(pathToHpObo)
+            pickle.dump(self.fullTree, open("fullTree.p","wb"), pickle.HIGHEST_PROTOCOL)
+            pickle.dump(self.annotationMap, open("annotationMap.p","wb"), pickle.HIGHEST_PROTOCOL)
+    
+    def _createAnnotationMap(self, pathToAnnotations, pathToIdMapping):
+        # Create annotation map
+        annotfilename = pathToAnnotations
+        idmappingfilename = pathToIdMapping
+        self.annotationMap = AnnotationMap()
+        self.annotationMap.parse(annotfilename)
+        self.annotationMap.loadidmapping(idmappingfilename)
+    
+    def _createFullHpoMap(self, pathToHpObo):
+            # Create Full HPO map    
+        hpofilename = pathToHpObo
+        self.fullTree = HpoTree()
+        self.fullTree.construct(hpofilename)
+    
+    def constructTreeForUniprotId(self, uniprotId):
+        # Get target annotations
+        annotations = self.annotationMap.getbyuniprotid(uniprotId)
+        
+        #print '\nAnnotations: %s\n\nPaths: ' % annotations
+        # Merge and print all paths
+        mergedTree = HpoTree()
+        for a in annotations:
+            path = self.fullTree.extractpath(a)
+            #print path
+            mergedTree.addpath(path)
+        
+        #print '\nMerged Tree:'
+        #print mergedTree
+        return mergedTree
