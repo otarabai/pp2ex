@@ -14,7 +14,7 @@ class Evaluator:
                 newTree.addterm(term.getcopy())
         return newTree
 
-    def getfvalue(self, predicted, reference):
+    def getscores(self, predicted, reference):
         matchs = 0.0
         
         for predictedTerm in predicted.terms.keys():
@@ -28,12 +28,13 @@ class Evaluator:
         recall = matchs / len(reference.terms)
         fvalue = (2.0 * precision * recall) / (precision + recall)
         
-        return fvalue
+        return {'fvalue' : fvalue, 'precision' : precision, 'recall' : recall}
     
-    def getallfvalues(self, predicted, reference):
+    def getallscores(self, predicted, reference):
         scores = list()
         for t in self.getthresholds():
             cuttree = self.applythreshold(predicted, t)
-            fvalue = self.getfvalue(cuttree, reference)
-            scores.append({'threshold' : t, 'fvalue' : fvalue})
+            threshscores = self.getscores(cuttree, reference)
+            threshscores['threshold'] = t
+            scores.append(threshscores)
         return scores

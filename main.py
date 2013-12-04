@@ -12,10 +12,11 @@ import linecache
 
 def main(argv):
 
-    testseqscount = 10 # Number of test sequences to use    
-    randomseed = None # Set this to some value if you want to use the same test set more than once, or None if you want it random each time
+    testseqscount = 100 # Number of test sequences to use    
+    randomseed = 1 # Set this to some value if you want to use the same test set more than once, or None if you want it random each time
     sequencesfile = 'initial/clean.fasta' # Used to get test sequences at random
     hitscount = 5
+    outputfilename = 'scores.dat'
 
     # Initializations
     treecreator = HpoTreeCreator()
@@ -37,10 +38,14 @@ def main(argv):
         testseqs.append({'seqid' : seqid, 'seqstring' : seqstring})
     
     # Repeat operations for each test sequence
+    nomatches = list()
     for inputseq in testseqs:
         # Query for blast results
         hits = blastalign.run(inputseq['seqstring'], hitscount + 1) # +1 because the sequence itself will be in the results
         hits = [h for h in hits if h['matchid'] != inputseq['seqid']] # Remove the sequence itself from results
+        if len(hits) == 0:
+            nomatches.append(inputseq)
+            continue
         
         # TODO: query for hhblits results and merge it with blast
         
@@ -50,8 +55,8 @@ def main(argv):
         
         # Use one of the merging methods to construct predicted tree with scores
         #prediction = combiner.combineNaive(hits)
-        #prediction = combiner.combineBasedOnFrequency(hits)
-        prediction = combiner.combineBasedOnPercentage(hits)
+        prediction = combiner.combineBasedOnFrequency(hits)
+        #prediction = combiner.combineBasedOnPercentage(hits)
         #print prediction
         
         # Create the reference tree for scoring
@@ -59,8 +64,11 @@ def main(argv):
         #print reference
         
         # Get evaluation results
-        inputseq['scores'] = evaluator.getallfvalues(prediction, reference)
+        inputseq['scores'] = evaluator.getallscores(prediction, reference)
         #print inputseq['scores']
+    
+    for n in nomatches:
+        testseqs.remove(n)
     
     # Do some analysis on the resulting scores
     avgfvalue = 0.0
@@ -71,6 +79,49 @@ def main(argv):
         avgfvalue += maxfvalue
     avgfvalue = avgfvalue / float(len(testseqs))
     print 'Average f-value: %f' % avgfvalue
+    
+    # Calculate average precision and recall over all thresholds used
+    avgs = dict()
+    for inputseq in testseqs:
+        for s in inputseq['scores']:
+            if s['threshold'] not in avgs.keys():
+                avgs[s['threshold']] = {'precision': 0.0, 'recall': 0.0}
+            avgs[s['threshold']]['precision'] += s['precision']
+            avgs[s['threshold']]['recall'] += s['recall']
+    # Write results to file
+    f = open(outputfilename, 'w')
+    for t, a in sorted(avgs.items()):
+        a['precision'] /= float(len(testseqs))
+        a['recall'] /= float(len(testseqs))
+        f.write('%f\t%f\n' % (a['recall'], a['precision']))
+
+def test():
+    testseqscount = 100 # Number of test sequences to use    
+    randomseed = 2 # Set this to some value if you want to use the same test set more than once, or None if you want it random each time
+    sequencesfile = 'initial/clean.fasta' # Used to get test sequences at random
+    hitscount = 5
+    outputfilename = 'scores.dat'
+
+    # Initializations
+    treecreator = HpoTreeCreator()
+    blastalign = Blast('blastdb/db.fasta')
+    combiner = HpoTreeCombiner()
+    evaluator = Evaluator()
+
+    seqid = 'P40337'
+    seqstr = 'MPRRAENWDEAEVGAEEAGVEEYGPEEDGGEESGAEESGPEESGPEELGAEEEMEAGRPRPVLRSVNSREPSQVIFCNRSPRVVLPVWLNFDGEPQPYPTLPPGTGRRIHSYRGHLWLFRDAGTHDGLLVNQTELFVPSLNVDGQPIFANITLPVYTLKERCLQVVRSLVKPENYRRLDIVRSLYEDLEDHPNVQKDLERLTQERIAHQRMGD'
+    
+    hits = blastalign.run(seqstr, hitscount + 1)
+    hits = [h for h in hits if h['matchid'] != seqid]
+    for hit in hits:
+        hit['tree'] = treecreator.constructTreeForUniprotId(hit['matchid'])
+    prediction = combiner.combineBasedOnFrequency(hits)
+    #print prediction
+    reference = treecreator.constructTreeForUniprotId(seqid)
+    #print reference
+    scores = evaluator.getallscores(prediction, reference)
+    print scores
 
 if __name__ == "__main__":
     main(sys.argv)
+    #test()

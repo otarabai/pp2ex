@@ -1,0 +1,7 @@
+set term png
+set xlabel 'recall'
+set ylabel 'precision'
+set output "output.png"
+set xrange [0.0:1.0]
+set yrange [0.0:1.0]
+plot "scores.dat" with lines notitle
