@@ -59,7 +59,7 @@ class Hhblits:
             'hhsearch',
             '-i', iFile.name,
             '-d', self.dbfilename,
-            '-z', hits,
+            '-z', str(hits),
             '-o', oFile.name,
             '-cpu', str(numberOfCpus)
             ]

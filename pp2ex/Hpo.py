@@ -147,6 +147,26 @@ class HpoTerm:
         return '<%s : %s, Score: %s>' % (self.id, self.name, self.score)
 
 class HpoTreeCombiner:
+    def normalizetermscores(self, tree):
+        if tree.root is None:
+            return tree
+        
+        maxscore = tree.root.score
+        minscore = tree.root.score
+        for term in tree.terms.itervalues():
+            maxscore = max(maxscore, term.score)
+            minscore = min(minscore, term.score)
+
+        maxscore = float(maxscore)
+        minscore = float(minscore)
+        for term in tree.terms.itervalues():
+            if maxscore == minscore:
+                term.score = 1.0
+            else:
+                term.score = (float(term.score) - minscore) / (maxscore - minscore)
+        
+        return tree
+
     """ All functions in this class expect a parameter: list of dictionaries
         
         Each dictonary contains:
@@ -172,6 +192,24 @@ class HpoTreeCombiner:
         for term in result.terms.itervalues():
             term.score = float(term.frequency) / maxfreq
         return result
+
+    def combineBasedOnScore(self, hits):
+        result = HpoTree()
+        
+        if len(hits) == 0:
+            return result
+        
+        for hit in hits:
+            hitscore = float(hit['score'])
+            for term in hit['tree'].terms.itervalues():
+                if term.id in result.terms and result.terms[term.id].name is not None:
+                    result.terms[term.id].score += hitscore
+                else:
+                    newTerm = term.getcopy()
+                    result.addterm(newTerm)
+                    result.terms[term.id].score += hitscore
+
+        return self.normalizetermscores(result)
 
     def combineBasedOnPercentage(self, hits):
         result = HpoTree()
