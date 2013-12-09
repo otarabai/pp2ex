@@ -8,6 +8,21 @@ from pp2ex.Hpo import HpoTreeCreator
 from pp2ex.Hpo import HpoTreeCombiner
 from pp2ex.Evaluator import Evaluator
 
+def gethhtarget(filehandle):
+    l = filehandle.readline()
+    seqid = None
+    hitslist = list()
+    while l:
+        parts = l.split()
+        if parts[0] != seqid:
+            if seqid is not None:
+                yield (seqid, hitslist)
+            seqid = parts[0]
+            hitslist = list()
+        hit = {'matchid' : parts[1], 'percentage' : parts[2], 'e-value' : parts[3]}
+        hitslist.append(hit)
+        l = filehandle.readline()
+
 def getnexttarget(filehandle):
     c = filehandle.read(1)
     seqid = None
@@ -69,5 +84,16 @@ def main(argv):
     oFile.close()
         
 
+def test():
+    filename = 'medians/hhResult_clean.csv'
+    f = open(filename)
+    counter = 0
+    for seq, hits in gethhtarget(f):
+        counter += 1
+        #print 'Seq: %s' % seq
+        #print 'Hits:\n %s' % hits
+    print counter
+
 if __name__ == "__main__":
-    main(sys.argv)
+    test()
+    #main(sys.argv)
