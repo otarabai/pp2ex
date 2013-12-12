@@ -268,6 +268,14 @@ class HpoTreeCreator:
         self.fullTree = HpoTree()
         self.fullTree.construct(hpofilename)
     
+    def constructTreeFromHpoIds(self, hpoids):
+        mergedTree = HpoTree()
+        for a in hpoids:
+            path = self.fullTree.extractpath(a)
+            #print path
+            mergedTree.addpath(path)
+        return mergedTree
+    
     def constructTreeForUniprotId(self, uniprotId):
         # Get target annotations
         annotations = self.annotationMap.getbyuniprotid(uniprotId)
