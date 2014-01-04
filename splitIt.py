@@ -1,3 +1,4 @@
+import os
 import sys
 import random
 import subprocess
@@ -135,6 +136,9 @@ def main(argv):
 	    sourceFile.close()
 	    # source-data for database created
 	    # create blast-DB
+	    os.remove('kfold/train.fasta.phr')
+	    os.remove('kfold/train.fasta.pin')
+	    os.remove('kfold/train.fasta.psq')
 	    cmd = 'formatdb -i kfold/train.fasta -p T'
 	    cmd = cmd.split()
 	    p = subprocess.Popen(cmd)
@@ -167,4 +171,4 @@ if __name__ == "__main__":
         fmax = main(sys.argv)
         print 'Trial %d: %f' % (i, fmax)
         totalfmax += fmax
-    print 'All trials average: %f' % totalfmax / 10
+    print 'All trials average: %f' % (totalfmax / 10)
