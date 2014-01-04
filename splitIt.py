@@ -171,4 +171,4 @@ if __name__ == "__main__":
         fmax = main(sys.argv)
         print 'Trial %d: %f' % (i, fmax)
         totalfmax += fmax
-    print 'All trials average: %f' % (totalfmax / 10)
+    print 'All trials average: %f' % (totalfmax / 10.0)
