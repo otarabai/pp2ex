@@ -38,7 +38,7 @@ def cleanblastresults(results): # Remove duplications in blast results
 
 def main(argv):
 
-    sequencesfile = 'initial/clean.fasta' # Used to get test sequences at random
+    sequencesfile = 'initial/clean.fasta'
     hitscount = 8
 
     # Initializations
