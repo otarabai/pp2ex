@@ -95,12 +95,13 @@
           <div class="container">
             <div class="carousel-caption">
               <h1>Sequence Input</h1>
-              <form role="form">
+              <form role="form" action="cgi-bin/annotate_from_web.py" method="post" enctype="multipart/form-data">
   <div class="form-group">
-    <input type="text" class="form-control" id="sequenceInput" placeholder="Enter Sequence">
+    <input type="text" name="sequence" class="form-control" id="sequenceInput" placeholder="Enter Sequence">
     <p class="help-block">Enter your protein sequence here.</p>
   </div>
   <button type="submit" class="btn btn-long btn-primary">Annotate</button>
+  
 </form>
             </div>
           </div>
