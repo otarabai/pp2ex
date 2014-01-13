@@ -30,7 +30,7 @@ def main(argv):
     counter = 0
     nomatchescounter = 0
     
-    hits = blastalign.run(sequence, hitscount)
+    hits = blastalign.run(sequence[0], hitscount)
     
     if len(hits) == 0:
        prediction = getdefaulTree(treecreator)
@@ -46,7 +46,7 @@ def main(argv):
                continue
            if term.score < threshold:
                continue
-           row = ('%s\t%s\t%.2f\n' % (seqid, term.id, term.score))
+           row = ('%s\t%.2f\n' % (term.id, term.score))
            result+=row
             
     result+='END'
