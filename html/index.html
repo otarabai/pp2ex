@@ -5,12 +5,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
+    <meta name="description" content="HPO Annotator from TumTeam6 at the Rostlab">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
 
-    <title>Carousel Template for Bootstrap</title>
-
+    <title>HPO Annotator by TUMteam6</title>
+    
     <!-- Bootstrap core CSS -->
     <link href="dist/css/bootstrap.css" rel="stylesheet">
 
@@ -46,7 +45,8 @@
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
+               <!-- 
+ <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
@@ -60,6 +60,8 @@
                     <li><a href="#">One more separated link</a></li>
                   </ul>
                 </li>
+ -->
+
               </ul>
             </div>
           </div>
@@ -95,7 +97,8 @@
           <div class="container">
             <div class="carousel-caption">
               <h1>Sequence Input</h1>
-              <form role="form" action="cgi-bin/annotate_from_web.py" method="post" enctype="multipart/form-data">
+              <!-- <form role="form" action="cgi-bin/annotate_from_web.py" method="post" enctype="multipart/form-data"> -->
+              <form role="form" method="post" id="inputForm" enctype="multipart/form-data">
   <div class="form-group">
     <input type="text" name="sequence" class="form-control" id="sequenceInput" placeholder="Enter Sequence">
     <p class="help-block">Enter your protein sequence here.</p>
@@ -130,34 +133,35 @@
 
       <!-- Four columns of text below the carousel -->
 
+<!-- 
       <div class="row">
         <div class="col-lg-4">
           <img class="img-circle" data-src="holder.js/120x120" alt="Meghana">
           <h2>Meghana</h2>
-         <!-- <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>-->
-        </div><!-- /.col-lg-4 -->
+         <!~~ <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>~~>
+        </div><!~~ /.col-lg-4 ~~>
                 <div class="col-lg-4">
           <img class="img-circle" data-src="holder.js/120x120" alt="Nagarnaj">
           <h2>Nagarnaj</h2>
-        <!--  <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>-->
-        </div><!-- /.col-lg-4 -->
+        <!~~  <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>~~>
+        </div><!~~ /.col-lg-4 ~~>
         <div class="col-lg-4">
           <img class="img-circle" data-src="holder.js/120x120" alt="Omar">
           <h2>Omar</h2>
-         <!-- <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
-        </div><!-- /.col-lg-4 -->
+         <!~~ <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> ~~>
+        </div><!~~ /.col-lg-4 ~~>
         <div class="col-lg-4">
           <img class="img-circle" data-src="holder.js/120x120" alt="Sebastian">
           <h2>Sebastian</h2>
-          <!--<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>-->
-        </div><!-- /.col-lg-4 -->
+          <!~~<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>~~>
+        </div><!~~ /.col-lg-4 ~~>
 
-      </div><!-- /.row -->
-      <!-- START THE FEATURETTES -->
+      </div><!~~ /.row ~~>
+      <!~~ START THE FEATURETTES ~~>
 
       <hr class="featurette-divider">
 
@@ -196,6 +200,7 @@
       </div>
 
       <hr class="featurette-divider">
+ -->
 
       <!-- /END THE FEATURETTES -->
 
@@ -203,7 +208,7 @@
       <!-- FOOTER -->
       <footer>
         <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2013 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        <p>Kshitija Nagaraj, Meghana Hanumanthappa, Omar Tarabai, Sebastian Seitz</p>
       </footer>
 
     </div><!-- /.container -->
@@ -212,6 +217,33 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <script>
+$(function() {
+
+    var $form = $('#inputForm');
+
+    $form.find('input[type="submit"]').click(function() {
+        $.ajax({
+           /* async: false,  this is deprecated*/
+            type: "POST",
+            url: "cgi-bin/annotate_from_web.py",
+            data: {
+                myString: $("#sequenceInput").val()
+            }
+        }).success(function(response) {
+            alert(response); //Got 'ok'
+            if(response == "ok") {
+             /*  submit the form
+                $form.submit();*/
+            } else {
+                alert("Oh, string is wrong. Form Submit is cancelled.");
+            }
+        }); /* prevent default when submit button clicked*/
+        return false;
+
+    });
+});
+    </script>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="dist/js/bootstrap.min.js"></script>
     <script src="dist/js/holder.js"></script>s
