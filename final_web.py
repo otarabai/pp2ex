@@ -1,9 +1,21 @@
 import sys
+import os
+import argparse
 from pp2ex.Alignment import Blast
 from pp2ex.Alignment import Hhblits
 from pp2ex.Hpo import HpoTree
 from pp2ex.Hpo import HpoTreeCreator
 from pp2ex.Hpo import HpoTreeCombiner
+
+def init_parser():
+    parser = argparse.ArgumentParser(description='Rostlab PP2 2013 Team6 protein predictor')
+    parser.add_argument('-s', '--sequence', metavar='SEQUENCE-STRING',
+        help="Predict protein sequence function")
+    parser.add_argument('-n', '--hits', action='store_true',
+        help="Return number of hits used")
+    parser.add_argument('-p', '--others', action='store_true',
+        help="Return sensitivity, precision and F-measure")
+    return parser.parse_args()
 
 def getdefaulTree(treecreator):
     # Top 73 termids
@@ -15,43 +27,52 @@ def getdefaulTree(treecreator):
     
 def main(argv):
 
-    sequence = sys.argv[1:]
-
     hitscount = 7
+    threshold = 0.2
 
-    # Initializations
-    treecreator = HpoTreeCreator()
-    blastalign = Blast('blastdb/db.fasta')
-    combiner = HpoTreeCombiner()
+    args = vars(init_parser())
 
-    # Read sequences from file
-
-    result = ''
-    counter = 0
-    nomatchescounter = 0
-    
-    hits = blastalign.run(sequence[0], hitscount)
-    
-    if len(hits) == 0:
-       prediction = getdefaulTree(treecreator)
-    else:
-       for hit in hits:
-           hit['tree'] = treecreator.constructTreeForUniprotId(hit['matchid'])
-       prediction = combiner.combineBasedOnScore(hits)
+    if args['hits']:
+        print hitscount
+    elif args['others']:
+        print '%.1f %.4f %.4f' % (threshold, 0.0, 0.2842)
+    elif args['sequence']:
+        sequence = args['sequence']
+        # Initializations
+        local_path = os.path.dirname(__file__)
+        ont_path = os.path.join(local_path, 'initial/hp.obo')
+        annot_path = os.path.join(local_path, 'initial/annotations.txt')
+        map_path = os.path.join(local_path, 'initial/idmapping')
+        db_path = os.path.join(local_path, 'blastdb/db.fasta')
         
-       threshold = 0.2
-       # Write leave terms of prediction to file (with threshold 0.3)
-       for term in prediction.terms.itervalues():
-           if len(term.children) > 0:
-               continue
-           if term.score < threshold:
-               continue
-           row = ('%s\t%.2f\n' % (term.id, term.score))
-           result+=row
+        treecreator = HpoTreeCreator(ont_path, annot_path, map_path)
+        blastalign = Blast(db_path)
+        combiner = HpoTreeCombiner()
+
+        result = ''
+        
+        hits = blastalign.run(sequence, hitscount)
+        
+        if len(hits) == 0:
+           prediction = getdefaulTree(treecreator)
+        else:
+           for hit in hits:
+               hit['tree'] = treecreator.constructTreeForUniprotId(hit['matchid'])
+           prediction = combiner.combineBasedOnScore(hits)
             
-    result+='END'
-    print result
-    sys.exit(0)
+        for term in prediction.terms.itervalues():
+            if len(term.children) > 0:
+                continue
+            if term.score < threshold:
+                continue
+            row = ('%s\t%.2f\n' % (term.id, term.score))
+            result+=row
+                
+        result+='END'
+        print result
+        sys.exit(0)
+    else:
+        print 'no option selected'
         
 if __name__ == "__main__":
     main(sys.argv)
