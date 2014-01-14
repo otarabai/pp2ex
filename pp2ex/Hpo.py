@@ -251,8 +251,8 @@ class HpoTreeCreator:
         except IOError:
             self._createAnnotationMap(pathToAnnotations, pathToIdMapping)
             self._createFullHpoMap(pathToHpObo)
-            pickle.dump(self.fullTree, open("fullTree.p","wb"), pickle.HIGHEST_PROTOCOL)
-            pickle.dump(self.annotationMap, open("annotationMap.p","wb"), pickle.HIGHEST_PROTOCOL)
+            #pickle.dump(self.fullTree, open("fullTree.p","wb"), pickle.HIGHEST_PROTOCOL)
+            #pickle.dump(self.annotationMap, open("annotationMap.p","wb"), pickle.HIGHEST_PROTOCOL)
     
     def _createAnnotationMap(self, pathToAnnotations, pathToIdMapping):
         # Create annotation map
