@@ -54,7 +54,7 @@ class HpoTree:
             if val.parent is None and val != self.root:
                 raise Exception('No parent defined for %s' % key)
         
-        print 'Parsed %d terms, ignored %d obselete terms' % (counter, obselete)
+        #print 'Parsed %d terms, ignored %d obselete terms' % (counter, obselete)
     
     def addterm(self, term):
         # validations on the new term
