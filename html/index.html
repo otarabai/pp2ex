@@ -97,8 +97,7 @@
           <div class="container">
             <div class="carousel-caption">
               <h1>Sequence Input</h1>
-              <!-- <form role="form" action="cgi-bin/annotate_from_web.py" method="post" enctype="multipart/form-data"> -->
-              <form role="form" method="post" id="inputForm" enctype="multipart/form-data">
+              <form role="form" id="inputForm" action="cgi-bin/annotate_from_web.py" method="post" enctype="multipart/form-data"> 
   <div class="form-group">
     <input type="text" name="sequence" class="form-control" id="sequenceInput" placeholder="Enter Sequence">
     <p class="help-block">Enter your protein sequence here.</p>
@@ -217,33 +216,6 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script>
-$(function() {
-
-    var $form = $('#inputForm');
-
-    $form.find('input[type="submit"]').click(function() {
-        $.ajax({
-           /* async: false,  this is deprecated*/
-            type: "POST",
-            url: "cgi-bin/annotate_from_web.py",
-            data: {
-                myString: $("#sequenceInput").val()
-            }
-        }).success(function(response) {
-            alert(response); //Got 'ok'
-            if(response == "ok") {
-             /*  submit the form
-                $form.submit();*/
-            } else {
-                alert("Oh, string is wrong. Form Submit is cancelled.");
-            }
-        }); /* prevent default when submit button clicked*/
-        return false;
-
-    });
-});
-    </script>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="dist/js/bootstrap.min.js"></script>
     <script src="dist/js/holder.js"></script>s
