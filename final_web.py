@@ -35,11 +35,11 @@ def main(argv):
     if args['hits']:
         print hitscount
     elif args['others']:
-        print '%.1f %.4f %.4f' % (threshold, 0.0, 0.2842)
+        print '%.1f %.4f %.4f' % (threshold, 0.4155, 0.2842)
     elif args['sequence']:
         sequence = args['sequence']
         # Initializations
-        local_path = os.path.dirname(__file__)
+        local_path = os.path.dirname(os.path.abspath(__file__))
         ont_path = os.path.join(local_path, 'initial/hp.obo')
         annot_path = os.path.join(local_path, 'initial/annotations.txt')
         map_path = os.path.join(local_path, 'initial/idmapping')
