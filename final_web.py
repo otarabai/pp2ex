@@ -41,7 +41,7 @@ def main(argv):
     elif args['sequence']:
         sequence = args['sequence']
         # Initializations
-        local_path = print os.path.dirname(os.path.realpath(os.path.abspath(__file__)))
+        local_path = os.path.dirname(os.path.realpath(os.path.abspath(__file__)))
         ont_path = os.path.join(local_path, 'initial/hp.obo')
         annot_path = os.path.join(local_path, 'initial/annotations.txt')
         map_path = os.path.join(local_path, 'initial/idmapping')
