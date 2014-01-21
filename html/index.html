@@ -1,50 +1,27 @@
-<!DOCTYPE html>
+<?xml version="1.0" encoding="UTF-8"?>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="HPO Annotator from TumTeam6 at the Rostlab" />
-    <meta name="author" content="" />
-
-    <title>HPO Annotator by TUMteam6</title>
-    
-    <!-- Bootstrap core CSS -->
-    <link href="dist/css/bootstrap.css" rel="stylesheet" />
-
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
+	<head>
+		<meta charset="utf-8"/>
+		<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+		<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+		<meta content="HPO Annotator from TumTeam6 at the Rostlab" name="description"/>
+		<meta content="" name="author"/>
+		<title>HPO Annotator by TUMteam6</title>
+		<!-- Bootstrap core CSS -->
+		<link href="dist/css/bootstrap.css" rel="stylesheet"/>
+		<!-- Just for debugging purposes. Don't actually copy this line! -->
+		<!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-
-    <!-- Custom styles for this template -->
-    <link href="dist/css/carousel.css" rel="stylesheet" />
-  </head>
-<!-- NAVBAR
+		<!-- Custom styles for this template -->
+		<link href="dist/css/carousel.css" rel="stylesheet"/>
+	</head>
+	<!-- NAVBAR
 ================================================== -->
-  <body>
-    <div class="navbar-wrapper">
-      <div class="container">
-
-        <div class="navbar navbar-inverse navbar-static-top" role="navigation">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="http://www.rostlab.org">Rostlab</a>
-            </div>
-            <div class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-               <!-- 
+	<body><div class="navbar-wrapper"><div class="container"><div class="navbar navbar-inverse navbar-static-top" role="navigation"><div class="container"><div class="navbar-header"><button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"/><span class="icon-bar"/><span class="icon-bar"/></button><a class="navbar-brand" href="http://www.rostlab.org">Rostlab</a></div><div class="navbar-collapse collapse"><ul class="nav navbar-nav"><li class="active"><a href="#">Home</a></li><!-- 
  <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li class="dropdown">
@@ -59,70 +36,9 @@
                     <li><a href="#">One more separated link</a></li>
                   </ul>
                 </li>
- -->
-
-              </ul>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-
-    <!-- Carousel
-    ================================================== -->
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-      </ol>
-      <div class="carousel-inner">
-        <div class="item active">
-          <img data-src="holder.js/900x500/auto/#777:#7a7a7a/text:First slide" alt="First slide" />
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>HPO-Annotator TUMteam6</h1>
-              <p>On this page you can find the HPO-Annotator created by Team6 of the TUM Munich for CAFA 2013!</p>
-              <p>Just slide to the next page and enter your amino-acid-sequence you want to have annotated!</p>
-              <!--<p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>-->
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img data-src="holder.js/900x500/auto/#666:#6a6a6a/text:Sequence input" alt="Second slide" />
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>Sequence Input</h1>
-              <form role="form" id="inputForm" action="cgi-bin/annotate_from_web.py" method="post" enctype="multipart/form-data"> 
-  <div class="form-group">
-    <input type="text" name="sequence" class="form-control" id="sequenceInput" placeholder="Enter Sequence" />
-    <p class="help-block">Enter your protein sequence here.</p>
-  </div>
-  <button type="submit" class="btn btn-long btn-primary">Annotate</button>
-  
-</form>
-            </div>
-          </div>
-        </div>
-        
-      </div>
-      <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-      <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-    </div><!-- /.carousel -->
-
-
-
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
-
-    <div class="container marketing">
-
-      <!-- Four columns of text below the carousel -->
-
-<!-- 
+ --></ul></div></div></div></div></div><!-- Carousel
+    ================================================== --><div class="carousel slide" data-ride="carousel" id="myCarousel"><!-- Indicators --><ol class="carousel-indicators"><li class="active" data-slide-to="0" data-target="#myCarousel"/><li data-slide-to="1" data-target="#myCarousel"/></ol><div class="carousel-inner"><div class="item active"><img alt="First slide" data-src="holder.js/900x500/auto/#777:#7a7a7a/text:First slide"/><div class="container"><div class="carousel-caption"><h1>HPO-Annotator TUMteam6</h1><p>On this page you can find the HPO-Annotator created by Team6 of the TUM Munich for CAFA 2013!</p><p>Just slide to the next page and enter your amino-acid-sequence you want to have annotated!</p><!--<p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>--></div></div></div><div class="item"><img alt="Second slide" data-src="holder.js/900x500/auto/#666:#6a6a6a/text:Sequence input"/><div class="container"><div class="carousel-caption"><h1>Sequence Input</h1><form action="cgi-bin/annotate_from_web.py" enctype="multipart/form-data" id="inputForm" method="post" role="form"><div class="form-group"><input class="form-control" id="sequenceInput" name="sequence" placeholder="Enter Sequence" type="text"/><p class="help-block">Enter your protein sequence here.</p></div><button class="btn btn-long btn-primary" type="submit">Annotate</button></form></div></div></div></div><a class="left carousel-control" data-slide="prev" href="#myCarousel"><span class="glyphicon glyphicon-chevron-left"/></a><a class="right carousel-control" data-slide="next" href="#myCarousel"><span class="glyphicon glyphicon-chevron-right"/></a></div><!-- /.carousel --><!-- Marketing messaging and featurettes
+    ================================================== --><!-- Wrap the rest of the page in another container to center all the content. --><div class="container marketing"><!-- Four columns of text below the carousel --><!-- 
       <div class="row">
         <div class="col-lg-4">
           <img class="img-circle" data-src="holder.js/120x120" alt="Meghana">
@@ -189,25 +105,7 @@
       </div>
 
       <hr class="featurette-divider">
- -->
-
-      <!-- /END THE FEATURETTES -->
-
-
-      <!-- FOOTER -->
-      <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>Kshitija Nagaraj, Meghana Hanumanthappa, Omar Tarabai, Sebastian Seitz</p>
-      </footer>
-
-    </div><!-- /.container -->
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="dist/js/bootstrap.min.js"></script>
-    <script src="dist/js/holder.js"></script>s
+ --><!-- /END THE FEATURETTES --><!-- FOOTER --><footer><p class="pull-right"><a href="#">Back to top</a></p><p>Kshitija Nagaraj, Meghana Hanumanthappa, Omar Tarabai, Sebastian Seitz</p></footer></div><!-- /.container --><!-- Bootstrap core JavaScript
+    ================================================== --><!-- Placed at the end of the document so the pages load faster --><script src="https://code.jquery.com/jquery-1.10.2.min.js"/><script src="dist/js/bootstrap.min.js"/><script src="dist/js/holder.js"/>s
   </body>
 </html>
