@@ -1,7 +1,7 @@
 set term png
-set xlabel 'recall'
-set ylabel 'precision'
+set xlabel 'Threshold'
+set ylabel 'F-value'
 set output "output.png"
 set xrange [0.0:1.0]
-set yrange [0.0:1.0]
-plot "scores.dat" with lines notitle
+set yrange [0.1:0.3]
+plot "n5" with lines title "N=5", "n6" with lines title "N=6", "n7" with lines title "N=7", "n8" with lines title "N=8"
