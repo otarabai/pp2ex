@@ -44,36 +44,49 @@ To overcome this problems and to be able to annotate protein function without re
 
 Our method mainly relies on using protein sequence similarity as an indicative of functional similarity in order to transfer Human Phenotype Ontology (HPO) annotations from known to unknown protein sequences. Therefore, in order to achieve a reasonable prediction, we needed a set of properly annotated and reviewed protein sequences to use as a reference database. For this we used...
 
-We used BLAST 2.2.26 \cite{blastweb} which is a widely-used tool for protein sequence alignment, it takes as input a pre-generated database of reference protein sequences and a target sequence. It employs a heuristic algorithm to search the reference database for sequences that are most similar to the target sequence. Its main output is the top N hits sorted from the most similar to the least similar protein sequence. Additionally, it outputs a number of other values defining statistics about the degree of similarity discovered, most relevant to our method is the "bit score" value which is a statistical measure of how good the alignment is \cite{blastscore}.
+We used BLAST 2.2.26 \cite{blastweb} which is a widely-used tool for protein sequence alignment, it takes as input a pre-generated database of reference protein sequences and a target sequence. It employs a heuristic algorithm to search the reference database for sequences that are most similar to the target sequence. Its main output is the top N hits sorted from the most similar to the least similar protein sequence. Additionally, it outputs a number of other values defining statistics about the degree of similarity discovered, most relevant to our method is the "bit score" value which is a statistical measure of how good the calculated sequence alignment is \cite{blastscore}.
+
+Our core algorithm takes three parameters as input, \textit{sequence} which is the target protein sequence string, \textit{hits N} which is the number of hits (positive integer) returned by blast to be used in the prediction, \textit{threshold T} which is cut-off value (real number between 0 and 1 inclusive) for the predicted annotation terms according to their confidence parameter.
+
+The algorithm starts by querying BLAST for the top \textit{N} hits for the target sequence against our pre-generated sequence database. For each of the resulting hits, we construct the full HPO tree from the set of HPO annotation terms corresponding to the hit protein, each term in the tree is labelled with the BLAST "bit score". The resulting N trees are merged together into a single prediction tree, the merging is a simple union operation, scores of the same term found in more than one tree are added together in the final prediction tree. Scores are then normalized to the [0,1] range using equation~(\ref{eq:01}) where $S$ is the predicted term score, $S_{min}$ and $S_{max}$ corresponding to the minimum and maximum scores found in the predicted tree respectively. As the final step, the threshold \textit{T} is applied to the predicted tree by removing any terms with a score lower than the threshold. The output of the algorithm is the list of "leaf" terms in the final tree and the corresponding normalized score as the term \textit{confidence} value.
+
+\begin{equation}
+S_N = \frac{S - S_{min}}{S_{max} - S_{min}}
+\label{eq:01}
+\end{equation}
+
+TODO: add "default tree" idea.
 
 \section{Results}
 
+An experiment was performed to arrive at the optimum values for the free parameters \textit{N} and \textit{T} described in the previous section. We ran the algorithm using as input each of the protein sequences that we have HPO annotations for and different values of \textit{N} (5 to 8 inclusive) and \textit{T} (0 to 1 inclusive with a step of 0.1). Since the target sequences used are present in the reference database, we altered the algorithm to query blast for the top $N + 1$ hits instead and removed the target protein from the result set. After each run, we compare the resulting prediction tree against the actual prediction tree and calculate the \textit{precision}, \textit{recall} and \textit{F-value} using equations \ref{eq:02}, \ref{eq:03} and \ref{eq:04} respectively, these values are then averaged over the whole set of target sequences used. Figure \ref{optim} shows the resulting \textit{F-value} for the different values of \textit{N} and \textit{T}. Since \textit{F-value} is considered a compromise between \textit{precision} and \textit{recall}, we use it as an indicative of performance, best result was achieved at \textit{N} = 7 and \textit{T} = 0.2 with an \textit{F-value} = 0.2842.
+
+\begin{equation}
+precision = \frac{true positive}{true positive + false positive}
+\label{eq:02}
+\end{equation}
+
+\begin{equation}
+recall = \frac{true positive}{true positive + true negative}
+\label{eq:03}
+\end{equation}
+
+\begin{equation}
+F-value = \frac{2 \times precision \times recall}{precision + recall}
+\label{eq:04}
+\end{equation}
+
+\begin{figure}[!tpb]
+\centerline{\includegraphics[scale=0.4]{bilder/optim.png}}
+\caption{Optimization experiment results}
+\label{optim}
+\end{figure}
+
 \section{Discussion}
-
-Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text. Figure \ref{fig:02} shows that the above method  Text Text Text Text  Text Text Text Text Text Text  Text Text.  \citealp{Boffelli03} might want to know about  text text text text
-Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text. Figure \ref{fig:02} shows that the above method  Text Text Text Text  Text Text Text Text Text Text  Text Text.  \citealp{Boffelli03} might want to know about  text text text text
-Text Text Text Text Text Text  Text Text Text Text.
-
-
-
-
-Table~\ref{Tab:01} shows that Text Text Text Text Text  Text Text Text Text Text Text. Figure \ref{fig:02} shows that
-the above method Text Text. Text Text Text  Text Text Text Text Text Text. Figure \ref{fig:02} shows that
-the above method Text Text. Text Text Text  Text Text Text Text Text Text. Figure \ref{fig:02} shows that
-the above method Text Text.
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%     please remove the " % " symbol from \centerline{\includegraphics{fig01.eps}}
-%     as it may ignore the figures.
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \section*{Acknowledgement}
-Without the great help and guidance by the Rostlab, and every groupmember there, we wouldn't have been able to succeed in creating our method. Also we'd like to thank the Rostlab for letting us access their computers and equipment.
+Without the great help and guidance by the Rostlab, and every group member there, we wouldn't have been able to succeed in creating our method. Also we'd like to thank the Rostlab for letting us access their computers and equipment.
 
 \begin{thebibliography}{}
 
