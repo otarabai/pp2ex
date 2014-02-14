@@ -33,7 +33,7 @@ In the databases many proteins are found for which the sequence is known, but th
 
 Many different approaches have been taken annotate protein function by computational methods, including methods based on sequence, expression, interaction and tertiary structure. Despite this taken effort and the following increase of number and variety of prediction methods, automated annotation remains difficult. Reasons for these difficulties can for example be found in the inherent limitations of current tools and databases or the ambiguity of the definition of function itself \citep{Rodrigues07}.
 
-To overcome this problems and to be able to annotate protein function without relying on tertiary data, this method is created to reliably predict protein function by sequence alone.
+To overcome this problems and to be able to annotate protein function without relying on tertiary data, this method is created to reliably predict protein function by input of a sequence alone.
 
 %TODO what to do with this 2 paragraphs?
 %Genomic scale projects have compounded the need for rapid and reliable functional annotation methods. Traditional experimental approaches have become outpaced resulting in an ever-increasing proportion of missing annotations. Computational approaches, including those based on sequence, expression, interaction and tertiary structure, have the potential to impact the growing annotation deficit.
@@ -72,7 +72,7 @@ recall = \frac{true positive}{true positive + true negative}
 \end{equation}
 
 \begin{equation}
-F-value = \frac{2 \times precision \times recall}{precision + recall}
+F-value = 2\times\frac{precision \times recall}{precision + recall}
 \label{eq:04}
 \end{equation}
 

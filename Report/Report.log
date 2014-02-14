@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.11.22)  14 FEB 2014 13:40
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.11.22)  14 FEB 2014 13:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -397,13 +397,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 95--96
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 97.
-Extra height:0.0pt when 346.16615pt
-(2)Left:346.16615pt Right:344.88379pt Output:346.16615pt
+Extra height:0.0pt when 334.4574pt
+(2)Left:334.4574pt Right:332.46628pt Output:334.4574pt
 - LAST -
 Extra skip:0.0pt
-Left:346.16615pt
-Right:344.88379pt
-Output:346.16615pt
+Left:334.4574pt
+Right:332.46628pt
+Output:334.4574pt
 LaTeX Font Info:    Font shape `OT1/phv/bx/it' in size <8> not available
 (Font)              Font shape `OT1/phv/b/it' tried instead on input line 132.
 LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <8> not available
@@ -449,7 +449,7 @@ ype1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/ur
 w/helvetic/uhvro8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/time
 s/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmr8a.p
 fb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Report.pdf (2 pages, 139965 bytes).
+Output written on Report.pdf (2 pages, 139946 bytes).
 PDF statistics:
  70 PDF objects out of 1000 (max. 8388607)
  49 compressed objects within 1 object stream
