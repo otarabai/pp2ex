@@ -461,7 +461,7 @@
 \enskip  \parbox[b]{11.3pc}{%
     \helvetica
     \flushright\fontsize{8}{10}\fontshape{it}\selectfont
-        Vol. 00\ no. 00 \@pubyear\\
+%        Vol. 00\ no. 00 \@pubyear\\
         \hfill Pages \thepagerange
   }}
   \rule{\textwidth}{1\p@}\par%

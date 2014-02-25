@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.1.1)  24 FEB 2014 20:29
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.1.1)  25 FEB 2014 15:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -364,12 +364,21 @@ Underfull \hbox (badness 1122) in paragraph at lines 32--33
 \OT1/ptm/m/n/9 is known, but the function is still not determined. With the
  []
 
-LaTeX Font Info:    Try loading font information for OMS+phv on input line 63.
+
+Underfull \hbox (badness 1270) in paragraph at lines 34--35
+\OT1/ptm/m/n/9 of prediction methods, automated annotation remains difficult
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Font Info:    Try loading font information for OMS+phv on input line 58.
+
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsphv.fd
 File: omsphv.fd 
 )
 LaTeX Font Info:    Font shape `OMS/phv/m/n' in size <7> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 63.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 58.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
@@ -379,55 +388,32 @@ LaTeX Font Info:    Font shape `OMS/phv/m/n' in size <7> not available
 <bilder/optim.png, id=18, 642.4pt x 481.8pt>
 File: bilder/optim.png Graphic file (type png)
  <use bilder/optim.png>
-Package pdftex.def Info: bilder/optim.png used on input line 80.
+Package pdftex.def Info: bilder/optim.png used on input line 75.
 (pdftex.def)             Requested size: 256.95544pt x 192.71658pt.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 81.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 76.
 
-Underfull \hbox (badness 2538) in paragraph at lines 87--88
+Underfull \hbox (badness 2538) in paragraph at lines 82--83
 \OT1/ptm/m/n/9 validation method. The initial database of reference protein
  []
 
 <bilder/image-4.png, id=19, 642.4pt x 481.8pt>
 File: bilder/image-4.png Graphic file (type png)
  <use bilder/image-4.png>
-Package pdftex.def Info: bilder/image-4.png used on input line 90.
+Package pdftex.def Info: bilder/image-4.png used on input line 85.
 (pdftex.def)             Requested size: 256.95544pt x 192.71658pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 103--104
+Underfull \hbox (badness 10000) in paragraph at lines 101--102
 []\OT1/ptm/m/n/7 BLAST: Basic Local Alignment Search Tool.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 105--106
-[]\OT1/ptm/m/n/7 BLAST Scores and Statistics.
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 107--108
-[]\OT1/ptm/m/n/7 Human Phenotype Ontology. http://www.human-phenotype-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 109--110
-[]\OT1/ptm/m/n/7 Uniprot: protein sequence and functional information database.
-
- []
-
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 111.
-Extra height:0.0pt when 620.91885pt
-(2)Left:620.91885pt Right:621.80838pt Output:620.91885pt
-(2)Left:621.80838pt Right:621.80838pt Output:621.80838pt
-- LAST -
-Extra skip:0.0pt
-Left:621.80838pt
-Right:621.80838pt
-Output:621.80838pt
 LaTeX Font Info:    Font shape `OT1/phv/bx/it' in size <8> not available
-(Font)              Font shape `OT1/phv/b/it' tried instead on input line 146.
+(Font)              Font shape `OT1/phv/b/it' tried instead on input line 103.
 LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <8> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 146.
+(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 103.
 
 Overfull \hbox (261.0pt too wide) has occurred while \output is active
 [][] 
@@ -441,20 +427,85 @@ Overfull \hbox (261.0pt too wide) has occurred while \output is active
 [][] 
  []
 
-[2 <./bilder/optim.png> <./bilder/image-4.png>] (./Report.aux)
+[2 <./bilder/optim.png> <./bilder/image-4.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 103--104
+[]\OT1/ptm/m/n/7 BLAST Scores and Statistics.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 105--106
+[]\OT1/ptm/m/n/7 Human Phenotype Ontology. http://www.human-phenotype-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 107--108
+[]\OT1/ptm/m/n/7 Uniprot: protein sequence and functional information database.
+
+ []
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 109.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+Extra height:10.0pt when 71.25772pt
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+Extra height:10.0pt when 72.25772pt
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+Extra height:10.0pt when 73.25772pt
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+Extra height:10.0pt when 74.25772pt
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+Extra height:10.0pt when 75.25772pt
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+Extra height:0.0pt when 76.25772pt
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+(2)Left:76.25772pt Right:75.51544pt Output:76.25772pt
+- LAST -
+Extra skip:0.0pt
+Left:76.25772pt
+Right:75.51544pt
+Output:76.25772pt
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (261.0pt too wide) has occurred while \output is active
+[][] 
+ []
+
+
+Overfull \vbox (1.0pt too high) has occurred while \output is active []
+
+ [3
+
+]
+(./Report.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
  ) 
 Here is how much of TeX's memory you used:
- 3259 strings out of 495059
- 41180 string characters out of 3182031
- 114373 words of memory out of 3000000
- 6344 multiletter control sequences out of 15000+200000
- 45029 words of font info for 91 fonts, out of 3000000 for 9000
+ 3261 strings out of 495059
+ 41201 string characters out of 3182031
+ 106355 words of memory out of 3000000
+ 6345 multiletter control sequences out of 15000+200000
+ 46713 words of font info for 93 fonts, out of 3000000 for 9000
  18 hyphenation exceptions out of 8191
- 38i,11n,26p,1242b,248s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,11n,27p,1242b,322s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/f
@@ -468,10 +519,10 @@ xlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-
 dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times
 /utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Report.pdf (2 pages, 145060 bytes).
+Output written on Report.pdf (3 pages, 146895 bytes).
 PDF statistics:
- 72 PDF objects out of 1000 (max. 8388607)
- 49 compressed objects within 1 object stream
+ 75 PDF objects out of 1000 (max. 8388607)
+ 51 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

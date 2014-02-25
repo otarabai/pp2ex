@@ -39,7 +39,7 @@ def cleanblastresults(results): # Remove duplications in blast results
 def main(argv):
 
     sequencesfile = 'initial/clean.fasta'
-    hitscount = 8
+    hitscount = 7
 
     # Initializations
     treecreator = HpoTreeCreator()
@@ -49,8 +49,12 @@ def main(argv):
 
     counter = 0
     fvalues = dict()
+    precision = dict()
+    recall = dict()
     for t in evaluator.getthresholds():
         fvalues[t] = 0.0
+        precision[t] = 0.0
+        recall[t] = 0.0
     
     # Repeat operations for each test sequence
     for seqid, seqstring in getnexttestseq(open(sequencesfile)):
@@ -63,16 +67,16 @@ def main(argv):
         hits = cleanblastresults(hits)
         
         if len(hits) == 0:
-            prediction = getdefaulTree(treecreator)
+            prediction = HpoTree()#getdefaulTree(treecreator)
         else:
             for hit in hits:
                 hit['tree'] = treecreator.constructTreeForUniprotId(hit['matchid'])
             
             # Use one of the merging methods to construct predicted tree with scores
-            #prediction = combiner.combineNaive(hits)
+            prediction = combiner.combineNaive(hits)
             #prediction = combiner.combineBasedOnFrequency(hits)
             #prediction = combiner.combineBasedOnPercentage(hits)
-            prediction = combiner.combineBasedOnScore(hits)
+            #prediction = combiner.combineBasedOnScore(hits)
         
         # Create the reference tree for scoring
         reference = treecreator.constructTreeForUniprotId(seqid)
@@ -81,10 +85,22 @@ def main(argv):
         scores = evaluator.getallscores(prediction, reference)
         for s in scores:
             fvalues[s['threshold']] += s['fvalue']
+            precision[s['threshold']] += s['precision']
+            recall[s['threshold']] += s['recall']
 
+    print 'F-values:\n'
     for t, f in sorted(fvalues.items()):
         print '%.1f\t%.4f' % (t, f / counter)
     
+    print '\nPrecisions:\n'
+    
+    for t, f in sorted(precision.items()):
+        print '%.1f\t%.4f' % (t, f / counter)
+        
+    print '\nRecalls:\n'
+    
+    for t, f in sorted(recall.items()):
+        print '%.1f\t%.4f' % (t, f / counter)
 
 if __name__ == "__main__":
     main(sys.argv)

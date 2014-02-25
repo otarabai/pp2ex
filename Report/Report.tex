@@ -5,7 +5,7 @@
 \begin{document}
 \firstpage{1}
 
-\title[HPO Annotator]{Automated HPO-Annotations for newly sequenced proteins by homology inference}
+\title{Automated HPO-Annotations for newly sequenced proteins by homology inference}
 \author{K. Nagaraj$^{1}$, M. Hanumanthappa$^{1}$, O. Tarabai$^{1}$, S. Seitz$^{1}$}
 \address{$^{1}$Fakul\"at f\"ur Informatik, Boltzmannstr. 3, 85748 Garching}
 
@@ -20,25 +20,20 @@
 \section{Motivation:}
 Rapid genome sequencing and high-throughput technology, automatic function prediction for a novel sequence is an essential matter in bioinformatics. Automatic annotations based on local alignments suffer from several drawbacks \citep{Ori06}. With our method we try to improve the precision and recall of automatic annotations.
 \section{Results:}
-Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text
+Our method achieved an \textit{F-value} of 0.2842 in predicting Human Phenotype Ontology (HPO) annotations for unknown protein sequences.
 
 \section{Availability:}
 The webinterface for our created prediction-method is available at https://dataminer.informatik.tu-muenchen.de/~omar.tarabai/.
 
-\section{Contact:} \href{name@bio.com}{name@bio.com}
+\section{Contact:} \href{assistant@rostlab.org}{assistant@rostlab.org}
 \end{abstract}
 
 \section{Introduction}
 In the databases many proteins are found for which the sequence is known, but the function is still not determined. With the increasing number of sequences, caused for example by genomic scale projects, traditional experimental approaches have become outpaced. This leads to the need for rapid and reliable functional annotation methods \citep{Rodrigues07}. 
 
-Many different approaches have been taken annotate protein function by computational methods, including methods based on sequence, expression, interaction and tertiary structure. Despite this taken effort and the following increase of number and variety of prediction methods, automated annotation remains difficult. Reasons for these difficulties can for example be found in the inherent limitations of current tools and databases or the ambiguity of the definition of function itself \citep{Rodrigues07}.
+Many different approaches have been taken to annotate protein function using computational methods, including methods based on sequence, expression, interaction and tertiary structure. Despite this taken effort and the following increase of number and variety of prediction methods, automated annotation remains difficult \citep{Rodrigues07}.
 
 To overcome this problems and to be able to annotate protein function without relying on tertiary data, this method is created to reliably predict protein function by input of a sequence alone.
-
-%TODO what to do with this 2 paragraphs?
-%Genomic scale projects have compounded the need for rapid and reliable functional annotation methods. Traditional experimental approaches have become outpaced resulting in an ever-increasing proportion of missing annotations. Computational approaches, including those based on sequence, expression, interaction and tertiary structure, have the potential to impact the growing annotation deficit.
-%
-%Despite a recent increase in the number and variety of prediction methods, the computational annotation of protein function remains difficult. This stems from a combination of issues such as the inherent limitations of current tools and databases, the difficulty of assessing the predictive power of different methods and more fundamental problems related to the ambiguity of the definition of function itself. %TODO http://www.biomedcentral.com/1471-2105/8/S4/S1 - real paper!
 
 \section{Material \& Methods}
 
@@ -92,11 +87,14 @@ Another experiment was performed using the 10-fold cross-validation method. The 
 \label{precrec}
 \end{figure}
 
+Additionally, we performed a comparison between our method and a naive approach in which annotations from the top \textit{N} BLAST hits are transferred directly to the target sequence without any scoring mechanism. We set \textit{N=7} and since there are no scores, the \textit{T} parameter is irrelevant. The naive approach achieved an \textit{F-value=0.1939}.
+
 \section{Discussion}
 
+Protein function prediction is a difficult problem, multiple methods are developed to solve different aspects of this problem. Our method relied on homology-based inference of HPO annotations, it outperformed the naive approach as shown in the previous section. Nevertheless, we believe there is still room for improvement by evaluating more sophisticated scoring methods.
 
 \section*{Acknowledgement}
-Without the great help and guidance by the Rostlab, and every group member there, we wouldn't have been able to succeed in creating our method. Also we'd like to thank the Rostlab for letting us access their computers and equipment and Tatyana Goldberg for collecting the data files used.
+Without the great help and guidance by the Rostlab, and every group member there, we wouldn't have been able to succeed in creating our method. Also we would like to thank the Rostlab for letting us access their computers and equipment and Tatyana Goldberg for collecting the data files used.
 
 \begin{thebibliography}{}
 
@@ -108,9 +106,9 @@ Without the great help and guidance by the Rostlab, and every group member there
 
 \bibitem[Uniprot]{uniprot} Uniprot: protein sequence and functional information database. \href{http://www.uniprot.org/}{http://www.uniprot.org/}
 
-\bibitem[Rodrigues {\it et~al}., 2007]{Rodrigues07} Rodrigues, Ana PC and Grand, Barry J and Godzik, Adam and Friedberg, Iddo (2007) The 2006 Automated Function Prediction Meeting, {\it BMC Bioinformatics}, {\bf 8}, S1. %source: http://www.biomedcentral.com/1471-2105/8/S4/S1
+\bibitem[Rodrigues {\it et~al}. 2007]{Rodrigues07} Rodrigues, Ana PC and Grand, Barry J and Godzik, Adam and Friedberg, Iddo (2007) The 2006 Automated Function Prediction Meeting, {\it BMC Bioinformatics}, {\bf 8}, S1. %source: http://www.biomedcentral.com/1471-2105/8/S4/S1
 
-\bibitem[Ori {\it et~al}., 2006]{Ori06} Sasson, Ori and Kaplan, Noam and Linial, Michal (2006) Functional annotation prediction: All for one and one for all, {\it Protein Science}, {\bf 15}, 1557-1562.
+\bibitem[Ori {\it et~al}. 2006]{Ori06} Sasson, Ori and Kaplan, Noam and Linial, Michal (2006) Functional annotation prediction: All for one and one for all, {\it Protein Science}, {\bf 15}, 1557-1562.
 
 % these following items were predefined in the template:
 %\bibitem[Bofelli {\it et~al}., 2000]{Boffelli03} Bofelli,F., Name2, Name3 (2003) Article title, {\it Journal Name}, {\bf 199}, 133-154.
